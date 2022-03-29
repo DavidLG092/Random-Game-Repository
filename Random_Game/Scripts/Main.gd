@@ -30,14 +30,29 @@ func _process(delta):
 	if Input.is_action_pressed("shoot"):
 		$Blast_Timer.set_one_shot(false)
 		$Blast_Timer.set_wait_time(0.1)
-		if timer_on == false:s
+		
+		if timer_on == false:
 			$Blast_Timer.start()
 			timer_on = true
 	elif Input.is_action_just_released("shoot"):
 		$Blast_Timer.stop()
+		timer_on = false
+		
 		$Player/AnimatedSprite.stop()
 		$Player/AnimatedSprite.frame = 0
-		$Label.text = "hey there"
+		
+		blasts_fired = 0
+		
+	if blasts_fired >= threshold:
+		$Blast_Timer.stop()
+		timer_on = true
+		
+		$Cooldown_Timer.set_one_shot(true)
+		$Cooldown_Timer.set_wait_time(5)
+		$Cooldown_Timer.start()
+		
+		$Blasts.text = blasts_fired
+		$Cooldown.text = $Cooldown_Timer.time_left
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()
@@ -62,7 +77,8 @@ func _on_Blast_Timer_timeout():
 	add_child(l_blast)
 	add_child(r_blast)
 	
-	$Label.text = "hello there"
-	
-	timer_on = false
 	blasts_fired += 1
+
+
+func _on_Cooldown_Timer_timeout():
+	timer_on = false

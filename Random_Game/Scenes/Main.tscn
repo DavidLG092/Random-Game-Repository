@@ -13,8 +13,16 @@ scale = Vector2( 4, 4 )
 
 [node name="Blast_Timer" type="Timer" parent="."]
 
-[node name="Label" type="Label" parent="."]
+[node name="Cooldown_Timer" type="Timer" parent="."]
+
+[node name="Blasts" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
 
+[node name="Cooldown" type="Label" parent="."]
+margin_top = 40.0
+margin_right = 40.0
+margin_bottom = 54.0
+
 [connection signal="timeout" from="Blast_Timer" to="." method="_on_Blast_Timer_timeout"]
+[connection signal="timeout" from="Cooldown_Timer" to="." method="_on_Cooldown_timeout"]

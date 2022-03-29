@@ -9,23 +9,10 @@ extends Area2D
 var speed
 var screen_size
 
-# Player variables
-var strength
-var blast_speed
-var blasts
-var cooldown
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	speed = 150
 	screen_size = get_viewport_rect().size
-	
-	strength = 10
-	blast_speed = 1
-	blasts = 0
-	cooldown = 3
-	
-	$AnimatedSprite.speed_scale = blast_speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,12 +23,6 @@ func _process(delta):
 	if Input.is_action_pressed("move_down"):
 		velocity.y += 1
 	
-	if Input.is_action_pressed("shoot"):
-		shoot()
-	elif Input.is_action_just_released("shoot"):
-		$AnimatedSprite.stop()
-		$AnimatedSprite.frame = 0
-	
 	velocity *= speed
 	
 	position += velocity * delta
@@ -51,8 +32,3 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
-	
-func shoot():
-	$AnimatedSprite.animation = "shooting"
-	$AnimatedSprite.speed_scale = blast_speed
-	$AnimatedSprite.play()

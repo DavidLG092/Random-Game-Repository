@@ -14,8 +14,7 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func start(pos):
-	position = pos
+func start():
 	show()
 	$CollisionShape2D.disabled = false
 

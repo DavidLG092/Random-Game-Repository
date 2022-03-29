@@ -11,7 +11,7 @@ var screen_size
 
 # Player variables
 var strength
-var blaster_speed
+var blast_speed
 var blasts
 var cooldown
 
@@ -21,12 +21,11 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 	strength = 10
-	blaster_speed = 1
+	blast_speed = 1
 	blasts = 0
 	cooldown = 3
 	
-	$AnimatedSprite.speed_scale = blaster_speed
-	$Blast.hide()
+	$AnimatedSprite.speed_scale = blast_speed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -55,7 +54,5 @@ func start(pos):
 	
 func shoot():
 	$AnimatedSprite.animation = "shooting"
-	$AnimatedSprite.speed_scale = blaster_speed
+	$AnimatedSprite.speed_scale = blast_speed
 	$AnimatedSprite.play()
-	
-	

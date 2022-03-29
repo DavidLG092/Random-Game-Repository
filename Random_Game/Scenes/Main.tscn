@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/Arcade/ARCADE_N.TTF" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -18,11 +25,13 @@ scale = Vector2( 4, 4 )
 [node name="Blasts" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
 
 [node name="Cooldown" type="Label" parent="."]
 margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 54.0
+custom_fonts/font = SubResource( 2 )
 
 [connection signal="timeout" from="Blast_Timer" to="." method="_on_Blast_Timer_timeout"]
 [connection signal="timeout" from="Cooldown_Timer" to="." method="_on_Cooldown_timeout"]

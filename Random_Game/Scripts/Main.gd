@@ -51,8 +51,8 @@ func _process(delta):
 		$Cooldown_Timer.set_wait_time(5)
 		$Cooldown_Timer.start()
 		
-		$Blasts.text = blasts_fired
-		$Cooldown.text = $Cooldown_Timer.time_left
+	$Blasts.text = str(blasts_fired)
+	$Cooldown.text = str($Cooldown_Timer.time_left as int)
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()

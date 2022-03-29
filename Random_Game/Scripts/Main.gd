@@ -11,6 +11,7 @@ var strength
 var blast_time
 var blasts_fired
 var threshold
+var timer = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,14 +23,20 @@ func _ready():
 	blasts_fired = 0
 	threshold = 50
 	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
-		$Blast_Timer.start()
+		$Blast_Timer.set_one_shot(false)
+		$Blast_Timer.set_wait_time(0.1)
+		if timer == false:
+			$Blast_Timer.start()
+			timer = true
 	elif Input.is_action_just_released("shoot"):
 		$Blast_Timer.stop()
 		$Player/AnimatedSprite.stop()
 		$Player/AnimatedSprite.frame = 0
+		$Label.text = "hey there"
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()
@@ -54,4 +61,7 @@ func _on_Blast_Timer_timeout():
 	add_child(l_blast)
 	add_child(r_blast)
 	
+	$Label.text = "hello there"
+	
+	timer = false
 	blasts_fired += 1

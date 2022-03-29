@@ -10,3 +10,8 @@ script = ExtResource( 2 )
 scale = Vector2( 4, 4 )
 
 [node name="Player_Position2D" type="Position2D" parent="."]
+
+[node name="Blast_Timer" type="Timer" parent="."]
+wait_time = 0.01
+
+[connection signal="timeout" from="Blast_Timer" to="." method="_on_Blast_Timer_timeout"]

@@ -6,42 +6,52 @@ extends Node2D
 # var b = "text"
 
 # Blast variables
-var l_blast = preload("res://Scenes/Blast.tscn").instance()
-var r_blast = preload("res://Scenes/Blast.tscn").instance()
 
 var strength
-var blast_speed
-var blasts
-var cooldown_time
+var blast_time
+var blasts_fired
+var threshold
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player_Position2D.position = Vector2(100, 300)
 	$Player.start($Player_Position2D.position)
 	
+	strength = 10
+	blast_time = 300
+	blasts_fired = 0
+	threshold = 50
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_pressed("shoot"):
+		$Blast_Timer.start()
+	elif Input.is_action_just_released("shoot"):
+		$Blast_Timer.stop()
+		$Player/AnimatedSprite.stop()
+		$Player/AnimatedSprite.frame = 0
+
+func _on_Blast_Timer_timeout():
+	var l_blast = preload("res://Scenes/Blast.tscn").instance()
+	var r_blast = preload("res://Scenes/Blast.tscn").instance()
+	
 	l_blast.start()
 	l_blast.scale = Vector2(4, 4)
 	
 	r_blast.start()
 	r_blast.scale = Vector2(4, 4)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_pressed("shoot"):
-		shoot()
-	elif Input.is_action_just_released("shoot"):
-		$Player/AnimatedSprite.stop()
-		$Player/AnimatedSprite.frame = 0
-
-func shoot():
+	
 	$Player/AnimatedSprite.animation = "shooting"
-	$Player/AnimatedSprite.speed_scale = blast_speed
+	$Player/AnimatedSprite.speed_scale = blast_time/100
 	$Player/AnimatedSprite.play()
 	
-	l_blast.position = Vector2($Player.position.x, $Player.position.y - 25)
-	r_blast.position = Vector2($Player.position.x, $Player.position.y + 25)
+	l_blast.position = Vector2($Player.position.x + 12, $Player.position.y - 28)
+	r_blast.position = Vector2($Player.position.x + 12, $Player.position.y + 28)
+	
+	l_blast.set_speed(blast_time)
+	r_blast.set_speed(blast_time)
 	
 	add_child(l_blast)
 	add_child(r_blast)
 	
-	
+	blasts_fired += 1

@@ -34,7 +34,7 @@ func _process(delta):
 	position.y = clamp(position.y, 96, screen_size.y - 96)
 	
 	if life <= 0:
-		$AnimatedSprite.animation = "explosion"
+		$AnimatedSprite.animation = "exploding"
 		$AnimatedSprite.play()
 		$CollisionShape2D.disabled = true
 	

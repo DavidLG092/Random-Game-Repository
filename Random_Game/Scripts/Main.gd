@@ -150,5 +150,4 @@ func _on_Big_Asteroid_Timer_timeout():
 	add_child(big_asteroid)
 	
 	big_runs += 1
-	$Blasts.text = "asndkajsd"
 

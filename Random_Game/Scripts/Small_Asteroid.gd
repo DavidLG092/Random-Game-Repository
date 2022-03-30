@@ -28,7 +28,7 @@ func _physics_process(delta):
 		$AnimatedSprite.play()
 		$CollisionShape2D.disabled = true
 	
-	if $AnimatedSprite.frame == 4:
+	if $AnimatedSprite.frame == 3:
 		$AnimatedSprite.stop()
 		queue_free()
 

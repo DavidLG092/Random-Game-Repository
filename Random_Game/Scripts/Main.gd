@@ -12,6 +12,7 @@ var blast_time
 var blasts_fired
 var threshold
 var timer_on
+var cooldown
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,36 +24,39 @@ func _ready():
 	blasts_fired = 0
 	threshold = 50
 	timer_on = false
+	cooldown = false
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
+		$Blast_Timer.set_paused(false)
 		$Blast_Timer.set_one_shot(false)
 		$Blast_Timer.set_wait_time(0.1)
-		
-		if timer_on == false:
+		if timer_on == false and cooldown == false:
 			$Blast_Timer.start()
 			timer_on = true
+			
 	elif Input.is_action_just_released("shoot"):
 		$Blast_Timer.stop()
-		timer_on = false
 		
 		$Player/AnimatedSprite.stop()
 		$Player/AnimatedSprite.frame = 0
 		
+		timer_on = false
+			 
 		blasts_fired = 0
 		
 	if blasts_fired >= threshold:
 		$Blast_Timer.stop()
-		timer_on = true
+		cooldown = true
 		
 		$Cooldown_Timer.set_one_shot(true)
 		$Cooldown_Timer.set_wait_time(5)
 		$Cooldown_Timer.start()
 		
-	$Blasts.text = str(blasts_fired)
-	$Cooldown.text = str($Cooldown_Timer.time_left as int)
+	$Blasts.text = "Blasts Fired: " + str(blasts_fired)
+	$Cooldown.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()
@@ -81,4 +85,4 @@ func _on_Blast_Timer_timeout():
 
 
 func _on_Cooldown_Timer_timeout():
-	timer_on = false
+	cooldown = false

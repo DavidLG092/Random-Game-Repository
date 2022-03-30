@@ -34,4 +34,4 @@ margin_bottom = 54.0
 custom_fonts/font = SubResource( 2 )
 
 [connection signal="timeout" from="Blast_Timer" to="." method="_on_Blast_Timer_timeout"]
-[connection signal="timeout" from="Cooldown_Timer" to="." method="_on_Cooldown_timeout"]
+[connection signal="timeout" from="Cooldown_Timer" to="." method="_on_Cooldown_Timer_timeout"]

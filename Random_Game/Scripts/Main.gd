@@ -5,6 +5,9 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+# Game varibles
+var level
+
 # Player variables
 var speed
 var life
@@ -36,6 +39,8 @@ var small_speed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	level = 1
+	
 	speed = 150
 	life = 10
 	big_attack = 10
@@ -93,13 +98,6 @@ func _process(delta):
 		$Cooldown_Timer.set_wait_time(5)
 		$Cooldown_Timer.start()
 		
-	#if big_runs == max_big_runs:
-	#	$Blast_Timer.stop()
-	#else:
-	#	if big_active == false:
-	#		$Blast_Timer.start()
-	#		big_active = true
-		
 	$Blasts.text = "Blasts Fired: " + str(threshold - blasts_fired)
 	$Cooldown.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
 
@@ -145,7 +143,7 @@ func _on_Big_Asteroid_Timer_timeout():
 	
 	big_asteroid.position = spawn_loc.position
 	
-	big_asteroid.set_speed(-2)
+	big_asteroid.set_speed(big_speed)
 	big_asteroid.set_life(big_life)
 	big_asteroid.set_attack(strength)
 	

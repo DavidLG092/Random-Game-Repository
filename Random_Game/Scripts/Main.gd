@@ -5,6 +5,12 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
+# Player variables
+var speed
+var life
+var small_attack
+var big_attack
+
 # Blast variables
 
 var strength
@@ -30,8 +36,16 @@ var small_speed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	speed = 150
+	life = 10
+	big_attack = 10
+	small_attack = 5
+	
 	$Player_Position2D.position = Vector2(100, 300)
 	$Player.start($Player_Position2D.position)
+	$Player.set_life(life)
+	$Player.set_speed(speed)
+	$Player.set_attack(big_attack)
 	
 	strength = 1
 	blast_time = 300

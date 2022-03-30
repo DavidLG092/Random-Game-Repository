@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Sprites/Spaceship/Images/Flying/spaceship_flying.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Spaceship/Images/Flying/spaceship_shooting.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Spaceship/Images/Exploding/spaceship_exploding_3.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Spaceship/Images/Exploding/spaceship_exploding_0.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/Spaceship/Images/Exploding/spaceship_exploding_1.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Spaceship/Images/Exploding/spaceship_exploding_2.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "exploding",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "shooting",
@@ -15,7 +24,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 
 [node name="Player" type="Area2D"]
-collision_mask = 2
+collision_mask = 4
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
@@ -23,10 +32,10 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "shooting"
+animation = "exploding"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 1.05, 0.85 )
 shape = SubResource( 2 )
 
-[connection signal="area_shape_entered" from="." to="." method="_on_Player_area_shape_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_Player_body_shape_entered"]

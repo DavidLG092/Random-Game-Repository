@@ -37,6 +37,10 @@ func _process(delta):
 		$AnimatedSprite.animation = "explosion"
 		$AnimatedSprite.play()
 		$CollisionShape2D.disabled = true
+	
+	if $AnimatedSprite.frame == 3:
+		$AnimatedSprite.stop()
+		queue_free()
 
 
 func start(pos):
@@ -44,6 +48,8 @@ func start(pos):
 	show()
 	$CollisionShape2D.disabled = false
 
+func set_speed(val):
+	speed = val
 
 func set_life(val):
 	life = val
@@ -53,5 +59,5 @@ func set_attack(val):
 	attack = val
 
 
-func _on_Player_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+func _on_Player_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	life -= attack

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/big_asteroid_1_0.png-010773c17f6549e11b9d70fef2e5aa52.stex"
+path="res://.import/big_asteroid_6.png-39059711123c38edb462515ddb4a1ede.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Big Asteroid/Images/Big Asteroid 1/big_asteroid_1_0.png"
-dest_files=[ "res://.import/big_asteroid_1_0.png-010773c17f6549e11b9d70fef2e5aa52.stex" ]
+source_file="res://Sprites/Big Asteroid/Images/big_asteroid_6.png"
+dest_files=[ "res://.import/big_asteroid_6.png-39059711123c38edb462515ddb4a1ede.stex" ]
 
 [params]
 

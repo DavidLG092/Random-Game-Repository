@@ -14,12 +14,19 @@ var threshold
 var timer_on
 var cooldown
 
+# Asteroid varibles
+
+var max_big_runs
+var big_runs
+var max_small_runs
+var small_runs
+var big_active
+var small_active
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player_Position2D.position = Vector2(100, 300)
 	$Player.start($Player_Position2D.position)
-	
-	$Big_Asteroid_1.start()
 	
 	strength = 10
 	blast_time = 300
@@ -27,6 +34,13 @@ func _ready():
 	threshold = 50
 	timer_on = false
 	cooldown = false
+	
+	max_big_runs = 3
+	big_runs = 0
+	max_small_runs = 7
+	small_runs = 0
+	big_active = false
+	small_active = false
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -55,9 +69,16 @@ func _process(delta):
 		$Cooldown_Timer.set_wait_time(5)
 		$Cooldown_Timer.start()
 		
-	$Blasts.text = "Blasts Fired: " + str(blasts_fired)
+	#if big_runs == max_big_runs:
+	#	$Blast_Timer.stop()
+	#else:
+	#	if big_active == false:
+	#		$Blast_Timer.start()
+	#		big_active = true
+		
+	$Blasts.text = "Blasts Fired: " + str(threshold - blasts_fired)
 	$Cooldown.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
-	
+
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()
@@ -87,3 +108,25 @@ func _on_Blast_Timer_timeout():
 
 func _on_Cooldown_Timer_timeout():
 	cooldown = false
+
+
+func _on_Big_Asteroid_Timer_timeout():
+	var big_asteroid = preload("res://Scenes/Big_Asteroid.tscn").instance()
+	
+	big_asteroid.start()
+	big_asteroid.scale = Vector2(4, 4)
+	
+	var spawn_loc = get_node("Asteroids_Path2D/PathFollow2D")
+	spawn_loc.offset = randi()
+	
+	big_asteroid.position = spawn_loc.position
+	
+	big_asteroid.set_speed(-2)
+	big_asteroid.set_life(10)
+	big_asteroid.set_attack(strength)
+	
+	add_child(big_asteroid)
+	
+	big_runs += 1
+	$Blasts.text = "asndkajsd"
+

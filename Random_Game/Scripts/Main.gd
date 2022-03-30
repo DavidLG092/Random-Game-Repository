@@ -23,12 +23,17 @@ var small_runs
 var big_active
 var small_active
 
+var big_life
+var small_life
+var big_speed
+var small_speed
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player_Position2D.position = Vector2(100, 300)
 	$Player.start($Player_Position2D.position)
 	
-	strength = 10
+	strength = 1
 	blast_time = 300
 	blasts_fired = 0
 	threshold = 50
@@ -41,6 +46,11 @@ func _ready():
 	small_runs = 0
 	big_active = false
 	small_active = false
+	
+	big_life = 10
+	small_life = 5
+	big_speed = -2
+	small_speed = -4
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -122,7 +132,7 @@ func _on_Big_Asteroid_Timer_timeout():
 	big_asteroid.position = spawn_loc.position
 	
 	big_asteroid.set_speed(-2)
-	big_asteroid.set_life(10)
+	big_asteroid.set_life(big_life)
 	big_asteroid.set_attack(strength)
 	
 	add_child(big_asteroid)

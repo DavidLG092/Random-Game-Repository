@@ -19,7 +19,7 @@ animations = [ {
 
 [node name="Big_Asteroid" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true

@@ -5,6 +5,10 @@ extends Area2D
 # var a = 2
 # var b = "text"
 
+# Functionality variables
+var life
+var attack
+
 # Movement variables
 var speed
 var screen_size
@@ -13,6 +17,7 @@ var screen_size
 func _ready():
 	speed = 150
 	screen_size = get_viewport_rect().size
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,8 +32,26 @@ func _process(delta):
 	
 	position += velocity * delta
 	position.y = clamp(position.y, 96, screen_size.y - 96)
+	
+	if life <= 0:
+		$AnimatedSprite.animation = "explosion"
+		$AnimatedSprite.play()
+		$CollisionShape2D.disabled = true
+
 
 func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+
+func set_life(val):
+	life = val
+	
+
+func set_attack(val):
+	attack = val
+
+
+func _on_Player_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	life -= attack

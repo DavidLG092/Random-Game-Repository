@@ -20,7 +20,7 @@ func _physics_process(delta):
 		$AnimatedSprite.play()
 		if $AnimatedSprite.frame == 4:
 			$AnimatedSprite.stop()
-			hide()
+			queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

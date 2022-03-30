@@ -28,7 +28,6 @@ func _ready():
 	timer_on = false
 	cooldown = false
 	
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
@@ -58,6 +57,7 @@ func _process(delta):
 		
 	$Blasts.text = "Blasts Fired: " + str(blasts_fired)
 	$Cooldown.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
+	
 
 func _on_Blast_Timer_timeout():
 	var l_blast = preload("res://Scenes/Blast.tscn").instance()

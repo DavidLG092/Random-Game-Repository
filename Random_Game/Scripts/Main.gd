@@ -19,6 +19,8 @@ func _ready():
 	$Player_Position2D.position = Vector2(100, 300)
 	$Player.start($Player_Position2D.position)
 	
+	$Big_Asteroid_1.start()
+	
 	strength = 10
 	blast_time = 300
 	blasts_fired = 0
@@ -30,7 +32,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_pressed("shoot"):
-		$Blast_Timer.set_paused(false)
 		$Blast_Timer.set_one_shot(false)
 		$Blast_Timer.set_wait_time(0.1)
 		if timer_on == false and cooldown == false:

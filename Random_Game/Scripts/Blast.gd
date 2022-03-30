@@ -18,6 +18,11 @@ func _ready():
 
 func _physics_process(delta):
 	move_and_slide(Vector2(speed, 0))
+	
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		if collision:
+			hide()
 
 func start():
 	show()

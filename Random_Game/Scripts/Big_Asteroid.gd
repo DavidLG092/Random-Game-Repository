@@ -51,3 +51,6 @@ func set_life(val):
 
 func set_attack(val):
 	attack = val
+
+func get_name():
+	return "big"

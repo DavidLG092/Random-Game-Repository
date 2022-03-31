@@ -50,6 +50,11 @@ rotation = 1.5708
 wait_time = 1.25
 autostart = true
 
+[node name="Small_Asteroid_Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_shape_entered" from="Player" to="." method="_on_Player_body_shape_entered"]
 [connection signal="timeout" from="Blast_Timer" to="." method="_on_Blast_Timer_timeout"]
 [connection signal="timeout" from="Cooldown_Timer" to="." method="_on_Cooldown_Timer_timeout"]
 [connection signal="timeout" from="Big_Asteroid_Timer" to="." method="_on_Big_Asteroid_Timer_timeout"]
+[connection signal="timeout" from="Small_Asteroid_Timer" to="." method="_on_Small_Asteroid_Timer_timeout"]

@@ -7,7 +7,8 @@ extends Area2D
 
 # Functionality variables
 var life
-var attack
+var big_attack
+var small_attack
 
 # Movement variables
 var speed
@@ -54,10 +55,12 @@ func set_speed(val):
 func set_life(val):
 	life = val
 	
+func get_life():
+	return life
 
-func set_attack(val):
-	attack = val
+func set_big_attack(val):
+	big_attack = val
 
 
-func _on_Player_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
-	life -= attack
+func set_small_attack(val):
+	small_attack = val

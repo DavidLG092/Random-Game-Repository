@@ -17,6 +17,8 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 
 [node name="Small_Asteroid" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_group_": true

@@ -7,6 +7,7 @@ extends Node2D
 
 # Game varibles
 var level
+var missed_asteroids
 
 # Player variables
 var speed
@@ -26,12 +27,9 @@ var timer_on
 var cooldown
 
 # Asteroid varibles
-# "max_run" variables are used to determine how many asteroids of each type are to be generated
 # "run" variables are used to count how many have already been generated
 
-var max_big_runs
 var big_runs
-var max_small_runs
 var small_runs
 #var big_active
 #var small_active
@@ -46,6 +44,7 @@ var small_speed
 func _ready():
 	# Sets level
 	level = 1
+	missed_asteroids = 0
 	
 	# Sets player variables
 	speed = 150
@@ -68,9 +67,7 @@ func _ready():
 	timer_on = false
 	cooldown = false
 	
-	max_big_runs = 3
 	big_runs = 0
-	max_small_runs = 7
 	small_runs = 0
 #	big_active = false
 #	small_active = false
@@ -95,9 +92,9 @@ func _process(delta):
 		
 		$Player/AnimatedSprite.stop()
 		$Player/AnimatedSprite.frame = 0
-		
-		timer_on = false
 			 
+		timer_on = false
+		
 		blasts_fired = 0
 		
 	# Checks if player used all the bullets
@@ -110,9 +107,13 @@ func _process(delta):
 		$Cooldown_Timer.start()
 		
 	# Update texts
-	$Blasts.text = "Blasts Fired: " + str(threshold - blasts_fired)
-	$Cooldown.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
-
+	if cooldown == true:
+		$Blasts.text = "Cooldown: " + str($Cooldown_Timer.time_left as int)
+	else:
+		$Blasts.text = "Blasts: " + str(threshold - blasts_fired)
+	
+	$Life.text = "Life: " + str(life)
+	$Missed_Asteroids.text = "Missed Asteroids: " + str(missed_asteroids)
 
 # Generates blasts
 func _on_Blast_Timer_timeout():
@@ -196,3 +197,7 @@ func _on_Small_Asteroid_Timer_timeout():
 	add_child(small_asteroid)
 	
 	small_runs += 1
+
+
+func _on_Area2D_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	missed_asteroids += 1
